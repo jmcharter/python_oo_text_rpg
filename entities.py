@@ -34,7 +34,6 @@ class Player_Character(Entity):
         super().__init__(name, location, hp, strength, defence, agility)
         self.level = 1
         self.xp = 0
-        self.command_list = ["move", "search", "item"]
         self.items = []
         self.victory = False
 
