@@ -1,36 +1,37 @@
 import rooms
+from entities import Monster
 
+map_locations = dict()
 
-map = dict()
-
-map['start'] = rooms.EmptyRoom(
+map_locations['start'] = rooms.EmptyRoom(
     "Starting room",
     "A creepy dark room.",
     {'e': 'forest',
-     's': 'basement'}
+     's': 'basement_01'}
 )
-map['forest'] = rooms.EmptyRoom(
+map_locations['forest'] = rooms.EmptyRoom(
     "Forest clearing",
     "A small clearing in a forest.",
     {'w': 'start',
      'e': 'dark_forest'}
 )
 
-map['dark_forest'] = rooms.EmptyRoom(
+map_locations['dark_forest'] = rooms.EmptyRoom(
     "Dark Forest",
     "A dark area of the forest...",
     {'w': 'forest'}
 )
 
-map['basement_01'] = rooms.ItemRoom(
+map_locations['basement_01'] = rooms.ItemRoom(
     "Basement 01",
     "A dusty basement, it's quite empty.",
     {'n': 'start',
      'w': 'nest'}
 )
 
-map['nest'] = rooms.MonsterRoom(
+map_locations['nest'] = rooms.MonsterRoom(
     "Monster nest",
     "You've stumbled into the nest of something...",
-    {'e': 'basement_01'}
+    {'e': 'basement_01'},
+    Monster('Giant Spider', 'nest', 6, 3, 2, 2, 1, 8)
 )

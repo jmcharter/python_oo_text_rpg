@@ -1,8 +1,12 @@
 class Room:
     def __init__(self, name, description, exits):
         self.name = name
-        self.descripition = description
+        self.description = description
         self.exits = exits
+
+    def action(self):
+        # Rooms have no action by default
+        pass
 
 
 class EmptyRoom(Room):
@@ -11,8 +15,14 @@ class EmptyRoom(Room):
 
 
 class MonsterRoom(Room):
-    def __init__(self, name, description, exits):
+    def __init__(self, name, description, exits, monster):
         super().__init__(name, description, exits)
+        self.monster = monster
+
+    def action(self):
+        if not self.monster.is_alive():
+            self.description += f"""
+             The corpse of a {self.monster.name} lies here."""
 
 
 class ItemRoom(Room):
