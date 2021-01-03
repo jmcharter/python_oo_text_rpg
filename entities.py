@@ -1,6 +1,3 @@
-import random
-
-
 class Entity:
     # All entities (player and NPCs) are based off of this class
 
@@ -17,9 +14,7 @@ class Entity:
             f"Entity object with name {self.name} and stats: HP: {self.hp}, "\
             f"Atk: {self.strength}, Def: {self.defence}, Spd: {self.agility}"
 
-    def attack_target(self, target):
-        damage = int(random.randrange(1, 7)) + random.randrange(1, 7) +\
-                 self.strength
+    def attack_target(self, target, damage):
         target.hp = target.hp - (damage - target.defence)
 
     def is_alive(self):
@@ -37,23 +32,11 @@ class Player_Character(Entity):
         self.items = []
         self.victory = False
 
-    def parse_command(self, command, *args):
-        if command.lower() in self.command_list:
-            self.command_list[command]()
-        else:
-            print("Command not found.")
+    def update_location(self, location):
+        self.location = location
 
-    def move(self, direction, current_room):
-        if direction in current_room.exits:
-            self.location = current_room.exits[direction]
-            return True
-        return False
-
-    def search(self):
-        print('search!')
-
-    def item(self):
-        print('item')
+    def get_items(self):
+        return self.items
 
 
 class Monster(Entity):
