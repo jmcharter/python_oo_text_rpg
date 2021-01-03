@@ -1,22 +1,23 @@
-from entities import Player_Character
-pc = Player_Character('player', 'start', 10, 6, 6, 7)
-
-commands = {
-    'move': pc.move,
-    'item': pc.item
-}
+import ui
 
 
-def parse_command(cmd):
-    if cmd[0] in commands:
-        commands[cmd[0]]
+def valid_command(cmd, entity):
+    valid_commands = {
+        'move': ['n', 'e', 's', 'w', 'north', 'east', 'south', 'west'],
+        'search': None,
+        'inventory': [item for item in entity.items],
+        'use': [item for item in entity.items],
+        'quit': None,
+        '?': ['move', 'search', 'inventory', 'use', 'quit']
+    }
+    input_qty = len(cmd)
+    if input_qty < 1:
+        return False
+    elif input_qty > 3 or cmd[0] not in valid_commands:
+        ui.input_error(*cmd)
+        return False
+    elif input_qty > 1 and cmd[1] not in valid_commands[cmd[0]]:
+        ui.input_error(*cmd)
+        return False
     else:
-        print("Command not valid, type '?' for help.")
-
-
-# if cmd[0] == 'move':
-#     if pc.move(cmd[1], room):
-#         room = map_locations[pc.location]
-#         print(f"You enter {room.name}.\n'{room.description}'")
-#     else:
-#         print("You cannot go this way ")
+        return True
