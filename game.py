@@ -1,26 +1,21 @@
 from entities import Player_Character
 from game_map import map_locations
-import commands
-from commands import pc
+from game_devices import Die
+import commands as cmd
+import ui
+
+
+def get_room(room):
+    return map_locations[room]
 
 
 def play():
-    name = input("Please enter your name: ")
-    # pc = Player_Character(name, 'start', 10, 6, 6, 7)
-    room = map_locations[pc.location]
-
-    while pc.is_alive() and not pc.victory:
-        room.action()
-
-
-def test():
-
-    # pc = Player_Character('player', 'start', 10, 6, 6, 7)
-    room = map_locations[pc.location]
-    while True:
-        cmd = input("Enter command: ").split(' ')
-        commands.parse_command(cmd)
-        room.action()
+    pc = Player_Character('player', 'start', 10, 6, 6, 7)
+    room = get_room(pc.location)
+    while pc.is_alive and not pc.victory:
+        user_input = input("> ").lower().split()
+        if not cmd.valid_command(user_input, pc):
+            continue
 
 
-test()
+play()
