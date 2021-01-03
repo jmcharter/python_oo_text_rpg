@@ -8,6 +8,9 @@ class Room:
         # Rooms have no action by default
         pass
 
+    def valid_exit(self, direction):
+        return direction in self.exits
+
 
 class EmptyRoom(Room):
     def __init__(self, name, description, exits):
@@ -20,6 +23,9 @@ class MonsterRoom(Room):
         self.monster = monster
 
     def action(self):
+        pass
+
+    def check_monster(self):
         if not self.monster.is_alive():
             self.description += f"""
              The corpse of a {self.monster.name} lies here."""
