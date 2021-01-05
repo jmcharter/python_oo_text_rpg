@@ -16,6 +16,8 @@ def play():
         user_input = input("> ").lower().split()
         if not cmd.valid_command(user_input, pc):
             continue
+        else:
+            cmd.parse_command(user_input, pc)
 
 
 play()
